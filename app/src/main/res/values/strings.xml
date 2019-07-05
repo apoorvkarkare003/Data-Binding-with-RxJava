@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TCAssignment</string>
+    <string name="hint_unique">Count with Unique words seperated by new line</string>
+    <string name="hint_every_tenth">Array of Every tenth character</string>
+    <string name="hint_tenth">Tenth character</string>
+    <string name="btn_text">Click me</string>
+</resources>
