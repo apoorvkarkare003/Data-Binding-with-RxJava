@@ -13,19 +13,35 @@ import com.test.tc.retrofit.RetrofitProvider;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final Counter counter = new Counter();
+    private Counter counter;
     private final Presenter presenter = new Presenter();
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        binding.setCounter(counter);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        if (savedInstanceState == null) {
+            counter = new Counter();
+            binding.setCounter(counter);
+        }
     }
 
     public void callApi(View view) {
         presenter.getData(RetrofitProvider.getInstance(), counter);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable("savedData", counter);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        counter = savedInstanceState.getParcelable("savedData");
+        binding.setCounter(counter);
+    }
 }
 
